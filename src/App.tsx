@@ -1,34 +1,24 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { CounterStore } from './store/counter'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const values = CounterStore((state) => ({
+    count: state.count,
+    title: state.title,
+  }))
+
+  const { increment, Decrement, Reset } = CounterStore()
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <section className="count">
+      <h1>{values.title}</h1>
+      <h1>{values.count}</h1>
+      <div className="botones">
+        <button onClick={() => increment()}>Sumar</button>
+        <button onClick={() => Decrement()}>Restar</button>
+        <button onClick={() => Reset()}>Reset</button>
       </div>
-      <h1>Vite + React Hola</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </section>
   )
 }
 
